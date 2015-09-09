@@ -92,10 +92,14 @@ int main(int argc, char ** argv)
     options.PrintParsedArguments(arguments);
     std::cout << "Options provided:" << std::endl << arguments << std::endl;
 
+    bool hasOpenIGTLink = options.IsSet("openigtlink-config");
+
     // make sure the json config file exists and can be parsed
     fileExists("JSON configuration", jsonMainConfigFile);
-    if (!jsonIGTLConfigFile.empty()) {
-        fileExists("OpenIGTLink configuration", jsonIGTLConfigFile);
+    if (hasOpenIGTLink) {
+        if (!jsonIGTLConfigFile.empty()) {
+            fileExists("OpenIGTLink configuration", jsonIGTLConfigFile);
+        } 
     }
     mtsManagerLocal * componentManager = mtsManagerLocal::GetInstance();
 
@@ -118,11 +122,12 @@ int main(int argc, char ** argv)
     consoleROS->Connect();
 
     // OpenIGTLink bridge
-    if (!jsonIGTLConfigFile.empty()) {
-        mtsOpenIGTLinkBridge igtlBridge("bridge", 10.0 * cmn_ms);
-        igtlBridge.Configure(jsonIGTLConfigFile);
-        componentManager->AddComponent(&igtlBridge);
-        igtlBridge.Connect();
+    mtsOpenIGTLinkBridge * igtlBridge;
+    if (hasOpenIGTLink) {
+        igtlBridge = new mtsOpenIGTLinkBridge ("bridge", 10.0 * cmn_ms);
+        igtlBridge->Configure(jsonIGTLConfigFile);
+        componentManager->AddComponent(igtlBridge);
+        igtlBridge->Connect();
     }
 
     //-------------- create the components ------------------
