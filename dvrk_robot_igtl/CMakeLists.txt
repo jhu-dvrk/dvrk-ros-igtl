@@ -36,7 +36,7 @@ set (REQUIRED_CISST_LIBRARIES
      cisstMultiTask
      cisstMultiTaskQt
      cisstParameterTypes
-     cisstParameterTypesQt 
+     cisstParameterTypesQt
      cisstRobot
      cisstNumerical
      cisstQt
@@ -56,11 +56,11 @@ if (cisst_FOUND_AS_REQUIRED)
                   DEPENDS ${REQUIRED_CISST_LIBRARIES})
 
   # sawRobotIO1394 has been compiled within cisst, we should find it automatically
-  cisst_find_saw_component (sawRobotIO1394 1.1.0 REQUIRED)
-  cisst_find_saw_component (sawIntuitiveResearchKit 1.1.0 REQUIRED)
-  cisst_find_saw_component (sawControllers 1.1.0 REQUIRED)
-  cisst_find_saw_component (sawConstraintController REQUIRED)
-  cisst_find_saw_component (sawOpenIGTLink REQUIRED)
+  find_package (sawRobotIO1394 1.3.0 REQUIRED)
+  find_package (sawIntuitiveResearchKit 1.3.0 REQUIRED)
+  find_package (sawControllers 1.3.0 REQUIRED)
+  find_package (sawConstraintController 1.0.2 REQUIRED)
+  find_package (sawOpenIGTLink 1.1.1 REQUIRED)
 
   include_directories (
     ${CMAKE_CURRENT_SOURCE_DIR}/include

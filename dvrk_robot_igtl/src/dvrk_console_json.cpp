@@ -68,6 +68,7 @@ int main(int argc, char ** argv)
     std::string jsonMainConfigFile;
     std::string jsonCollectionConfigFile;
     std::string jsonIGTLConfigFile;
+    std::string versionString = "v1_4_0";
 
     options.AddOptionOneValue("j", "json-config",
                               "json configuration file",
@@ -80,6 +81,10 @@ int main(int argc, char ** argv)
     options.AddOptionOneValue("o", "openigtlink-config",
                               "json configuration file for sawOpenIGTLink bridge",
                               cmnCommandLineOptions::OPTIONAL_OPTION, &jsonIGTLConfigFile);
+
+    options.AddOptionOneValue("c", "compatibility",
+                              "compatibility mode, e.g. \"v1_3_0\", \"v1_4_0\"",
+                              cmnCommandLineOptions::OPTIONAL_OPTION, &versionString);
 
     // check that all required options have been provided
     std::string errorMessage;
@@ -101,6 +106,20 @@ int main(int argc, char ** argv)
             fileExists("OpenIGTLink configuration", jsonIGTLConfigFile);
         } 
     }
+
+    // check version mode
+    dvrk_topics_version::version versionEnum;
+    try {
+        versionEnum = dvrk_topics_version::versionFromString(versionString);
+    } catch (std::exception e) {
+        std::cerr << "Compatibility mode " << versionString << " is invalid" << std::endl;
+        std::cerr << "Possible values are: ";
+        std::cerr << cmnData<std::vector<std::string> >::HumanReadable(dvrk_topics_version::versionVectorString());
+        std::cerr << std::endl;
+        return -1;
+    }
+    std::cout << "Using compatibility mode: " << versionString << std::endl;
+
     mtsManagerLocal * componentManager = mtsManagerLocal::GetInstance();
 
     // console
@@ -117,7 +136,8 @@ int main(int argc, char ** argv)
 
     // ros wrapper
     mtsROSBridge rosBridge("dVRKBridge", rosPeriod, true);
-    dvrk::console * consoleROS = new dvrk::console(rosBridge, "/dvrk/", console);
+    dvrk::console * consoleROS = new dvrk::console(rosBridge, "/dvrk/",
+                                                   console, versionEnum);
     componentManager->AddComponent(&rosBridge);
     consoleROS->Connect();
 
