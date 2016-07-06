@@ -1,7 +1,7 @@
 /* -*- Mode: Javascript; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- */
 
 {
-    "arms":
+    "servers":
     [
         {
             "name": "SUJ-PSM1",
@@ -38,19 +38,19 @@
             "port-number": 18940
         }
         ,
-        {
-            "name": "PSM2",
-            "component": "PSM2",
-            "provided-interface": "Robot",
-            "port-number": 18941
-        }
+        // {
+        //     "name": "PSM2",
+        //     "component": "PSM2",
+        //     "provided-interface": "Robot",
+        //     "port-number": 18941
+        // }
         //,
-        //{
-        //    "name": "PSM3",
-        //    "component": "PSM3",
-        //    "provided-interface": "Robot",
-        //    "port-number": 18950
-        //}
+        {
+           "name": "PSM3",
+           "component": "PSM3",
+           "provided-interface": "Robot",
+           "port-number": 18950
+        }
         ,
         {
             "name": "ECM",

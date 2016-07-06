@@ -80,9 +80,9 @@ int main(int argc, char ** argv)
 
     options.AddOptionOneValue("o", "openigtlink-config",
                               "json configuration file for sawOpenIGTLink bridge",
-                              cmnCommandLineOptions::OPTIONAL_OPTION, &jsonIGTLConfigFile);
+                              cmnCommandLineOptions::REQUIRED_OPTION, &jsonIGTLConfigFile);
 
-    options.AddOptionOneValue("c", "compatibility",
+    options.AddOptionOneValue("m", "compatibility-mode",
                               "compatibility mode, e.g. \"v1_3_0\", \"v1_4_0\"",
                               cmnCommandLineOptions::OPTIONAL_OPTION, &versionString);
 
