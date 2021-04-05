@@ -1,23 +1,4 @@
 da Vinci Research Kit ROS with OpenIGTLink
 ==========================================
 
-This repository has code related to daVinci Research Kit (dVRK)
-See https://github.com/jhu-dvrk/sawIntuitiveResearchKit/wiki
-
-# Install 
-* Download and compile the cisst libraries and SAW components for the dVRK, see the dVRK tutorial wiki: 
-* Download in `catkin_ws/src`:
-  * cisst-ros:
-  * dvrk-ros:
-  * dvrk-ros-igtl:
-* Build: 
-  ```sh
-  catkin build
-  ```
-
-# How to run the code
-
-```sh
-  rosrun dvrk_robot_igtl dvrk_console_json -j <dvrk_console_config>.json -o <saw_openigtl_config>.json
-```
-
+This repository has code developped to use the daVinci Research Kit (dVRK, https://github.com/jhu-dvrk/sawIntuitiveResearchKit/wiki) with the cisst/SAW wrapper for OpenIGTLink (igtl, https://github.com/jhu-dvrk/sawOpenIGTLink).  This code is **deprecated**, please use the configuration files provided in the main dVRK repository to use dynamic loading (in *sawIntuitiveResearchKit*, directory `share/igtl`).
